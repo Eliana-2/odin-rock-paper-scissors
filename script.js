@@ -20,22 +20,27 @@ function computerPlay()
 //function that plays a round of Rock Paper Scissors
 function playRound(playerSelection, computerSelection)
 {
+  resultP = document.querySelector(`#result`);
+
   //get new selections if result is a draw
-  while(playerSelection === computerSelection)
+  if(playerSelection === computerSelection)
   {
-    playerSelection = prompt(`Draw, try agin! Rock, paper, scissors!`).toLowerCase();
-    computerSelection = computerPlay().toLowerCase();
+    resultP.textContent = `It's a draw! Try again!`;
+    return;
   }
 
   //check result and return it as a string
   switch(playerSelection)
   {
-    case `rock`:
-      return (computerSelection === `Paper`) ? `You Lose! Paper beats Rock` : `You Win! Rock beats Scissors`;
-    case `scissors`:
-      return (computerSelection === `Rock`) ? `You Lose! Rock beats Scissors` : `You Win! Scissors beats Paper`;
-    case `paper`:
-      return (computerSelection === `Scissors`) ? `You Lose! Scissors beats Paper` : `You Win! Paper beats Rock`;
+    case `Rock`:
+      resultP.textContent = (computerSelection === `Paper`) ? `You Lose! Paper beats Rock` : `You Win! Rock beats Scissors`;
+      return;
+    case `Scissors`:
+      resultP.textContent = (computerSelection === `Rock`) ? `You Lose! Rock beats Scissors` : `You Win! Scissors beats Paper`;
+      return;
+    case `Paper`:
+      resultP.textContent = (computerSelection === `Scissors`) ? `You Lose! Scissors beats Paper` : `You Win! Paper beats Rock`;
+      return;
   }
 }
 

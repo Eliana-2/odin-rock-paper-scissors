@@ -7,6 +7,8 @@ body {
 
 .content {
   margin: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 #button-container {

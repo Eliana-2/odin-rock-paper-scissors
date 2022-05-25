@@ -31,11 +31,11 @@ function playRound(playerSelection, computerSelection)
   switch(playerSelection)
   {
     case `rock`:
-      return (computerSelection === `paper`) ? `You Lose! Paper beats Rock` : `You Win! Rock beats Scissors`;
+      return (computerSelection === `Paper`) ? `You Lose! Paper beats Rock` : `You Win! Rock beats Scissors`;
     case `scissors`:
-      return (computerSelection === `rock`) ? `You Lose! Rock beats Scissors` : `You Win! Scissors beats Paper`;
+      return (computerSelection === `Rock`) ? `You Lose! Rock beats Scissors` : `You Win! Scissors beats Paper`;
     case `paper`:
-      return (computerSelection === `scissors`) ? `You Lose! Scissors beats Paper` : `You Win! Paper beats Rock`;
+      return (computerSelection === `Scissors`) ? `You Lose! Scissors beats Paper` : `You Win! Paper beats Rock`;
   }
 }
 
@@ -65,5 +65,12 @@ function game()
   console.log(matchResult);
 }
 
+const buttons = document.querySelectorAll(`.rpsButton`);
+buttons.forEach((button) => {
+  button.addEventListener(`click`, function(e) {
+    playRound(e.target.textContent, computerPlay());
+  })
+})
+
 //play one game of rock, paper, scissors
-game();
+//game();

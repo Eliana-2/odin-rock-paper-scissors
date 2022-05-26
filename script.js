@@ -20,60 +20,53 @@ function computerPlay()
 //function that plays a round of Rock Paper Scissors
 function playRound(playerSelection, computerSelection)
 {
-  resultP = document.querySelector(`#result`);
+  
 
   //get new selections if result is a draw
   if(playerSelection === computerSelection)
   {
-    resultP.textContent = `It's a draw! Try again!`;
-    return;
+    return `It's a draw! Try again!`;
   }
 
   //check result and return it as a string
   switch(playerSelection)
   {
     case `Rock`:
-      resultP.textContent = (computerSelection === `Paper`) ? `You Lose! Paper beats Rock` : `You Win! Rock beats Scissors`;
-      return;
+      return (computerSelection === `Paper`) ? `You Lose! Paper beats Rock` : `You Win! Rock beats Scissors`;
     case `Scissors`:
-      resultP.textContent = (computerSelection === `Rock`) ? `You Lose! Rock beats Scissors` : `You Win! Scissors beats Paper`;
-      return;
+      return (computerSelection === `Rock`) ? `You Lose! Rock beats Scissors` : `You Win! Scissors beats Paper`;
     case `Paper`:
-      resultP.textContent = (computerSelection === `Scissors`) ? `You Lose! Scissors beats Paper` : `You Win! Paper beats Rock`;
-      return;
+      return (computerSelection === `Scissors`) ? `You Lose! Scissors beats Paper` : `You Win! Paper beats Rock`;
   }
 }
 
-//fucntion that plays a five-round game of rock, paper, scissors
-function game()
+function updateScore(resultString)
 {
-  //count player and computer wins
-  let playerWins = 0;
-  let computerWins = 0;
-
-  //play five rounds
-  for (let i = 0; i < 5; i++)
+  console.log(resultString.substr(0.7));
+  if(resultString.substr(0,1) === `I`)
   {
-    //get round result
-    let roundResult = playRound(prompt(`Rock, paper, scissors!`).toLowerCase(), computerPlay().toLowerCase());
-    
-    //check round result and add to player or computer wins
-    (roundResult.substr(0,7) === `You win`) ? playerWins += 1 : computerWins += 1;
-    
-    //display round result
-    console.log(roundResult)
+    return;
   }
-
-  //check match result
-  let matchResult = (playerWins > computerWins) ? `You won the game!` : `You lost the game!`;
-  //display match result
-  console.log(matchResult);
+  else
+  {
+     const resultCount = (resultString.substr(0,7) === `You Win`) ? document.querySelector(`#wins`) : document.querySelector(`#losses`);
+     resultCount.textContent = (+resultCount.textContent + 1).toString();
+     setTimeout(function() {
+      if(resultCount.textContent === `5`)
+      {
+       window.confirm(resultString.substr(0, 9));
+       window.location.reload();
+      }
+     }, 1);
+  }
 }
 
 const buttons = document.querySelectorAll(`.rpsButton`);
 buttons.forEach((button) => {
   button.addEventListener(`click`, function(e) {
-    playRound(e.target.textContent, computerPlay());
+    resultP = document.querySelector(`#result`);
+    resultP.textContent = playRound(e.target.textContent, computerPlay());
+    updateScore(resultP.textContent);
   })
 })
 
